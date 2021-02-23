@@ -1,10 +1,10 @@
-import { Content, Header, MainContent, Main, IconRefresh, Footer } from '../main/styles'
+import { Container, Header, MainContent, Main, IconRefresh, Footer } from '../main/styles'
 import { BiRefresh } from 'react-icons/bi'
 import { FiCalendar } from 'react-icons/fi'
 
 export const MainContainer = () => {
   return (
-    <Content>
+    <Container>
       <Header>
         <h3>Send Money</h3>
         <strong>22,124 <small>available</small></strong>
@@ -71,7 +71,7 @@ export const MainContainer = () => {
 
       </Footer>
 
-    </Content>
+    </Container>
 
 
   )

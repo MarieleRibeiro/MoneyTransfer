@@ -14,14 +14,14 @@ export const Sidebar = () => {
         <h3>Mariele Ribeiro</h3>
         <p>2312T45B</p>
         <MenuItem>
-          <a href="#" > <IoGridOutline /> Services</a>
-          <a href="#"> <IoRepeat /> Transitions</a>
-          <a href="#"> <IoMdShuffle /> Send Money</a>
-          <a href="#"> <IoCardOutline /> Card</a>
-          <a href="#"> <FiDatabase /> History</a>
+          <a href="/" > <IoGridOutline /> Services</a>
+          <a href="/"> <IoRepeat /> Transitions</a>
+          <a href="/"> <IoMdShuffle /> Send Money</a>
+          <a href="/"> <IoCardOutline /> Card</a>
+          <a href="/"> <FiDatabase /> History</a>
           <MenuFooter>
-            <a href="#"> <FiSettings /> Setting</a>
-            <a href="#"> <CgLogOut /> Log Out</a>
+            <a href="/"> <FiSettings /> Setting</a>
+            <a href="/"> <CgLogOut /> Log Out</a>
           </MenuFooter>
         </MenuItem>
       </Perfil>

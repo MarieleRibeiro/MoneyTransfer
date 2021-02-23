@@ -1,12 +1,6 @@
 import styled from 'styled-components'
 export const Container = styled.div`
-width: 100vw;
-max-width: 1440px;
-height: 100%;
-background:  ${props => props.theme.colors.white300};
-display: grid;
-grid-template-columns: 283px 1fr 1fr;
-padding-left: 55px;
+
 `
 
 export const Perfil = styled.div`
