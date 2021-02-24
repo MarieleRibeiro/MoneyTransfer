@@ -11,8 +11,10 @@ export const Sidebar = () => {
     <Container>
       <Perfil>
         <img src={Avatar} alt="Perfil" />
-        <h3>Mariele Ribeiro</h3>
-        <p>2312T45B</p>
+        <span>
+          <h3>Mariele Ribeiro</h3>
+          <p>2312T45B</p>
+        </span>
         <MenuItem>
           <a href="/" > <IoGridOutline /> Services</a>
           <a href="/"> <IoRepeat /> Transitions</a>

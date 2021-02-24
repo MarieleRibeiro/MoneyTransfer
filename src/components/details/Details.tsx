@@ -4,15 +4,23 @@ import { FiArrowRight, FiFileText, FiHelpCircle, FiCalendar, FiDollarSign, FiShu
 export const Container = styled.div`
   max-width: 381px;
   width: 100%;
+
+  @media (max-width: 414px) {
+    width: 100%;
+  }
 `
 export const Wrapper = styled.div`
   width: 100%;
- 
   border: 2px solid #E4E7EB;
   box-sizing: border-box;
   border-radius: 4px;
   margin-left: 49px;
   margin-top: 55px;
+
+  @media (max-width: 414px) {
+    width: 100%;
+    margin: 96px 0 0 0;
+  }
 `
 export const Menu = styled.div`
   width: 100%;
@@ -21,6 +29,9 @@ export const Menu = styled.div`
   button:first-child {
     margin-right: 27px;
 }
+@media (max-width: 414px) {
+    display: none;
+  }
 `
 export const Button = styled.button`
    background: #FFFFFF;
@@ -29,6 +40,10 @@ export const Button = styled.button`
   height: 45px;
   border-radius: 50%;
   align-items: center;
+
+  @media (max-width: 414px) {
+    width: 100%;
+  }
 `
 
 export const MenuPayment = styled.div`
@@ -56,6 +71,12 @@ export const ButtonFooter = styled.button`
   width: 301px;
   height: 46px;
   margin-top: 93px;
+  font-weight: 500;
+  font-size: 18px;
+  color: ${(props) => props.theme.colors.white};
+  @media (max-width: 414px) {
+    width: 100%;
+  }
 `
 
 export const Info = styled.div`

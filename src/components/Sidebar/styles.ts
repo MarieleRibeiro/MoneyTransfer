@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const Container = styled.div`
   width: 100%;
   max-width: 283px;
+
 `
 
 export const Perfil = styled.div`
@@ -34,12 +35,26 @@ h3 {
   font-size: 24px;
   color: ${(props) => props.theme.colors.black}
 }
+
+@media (max-width: 1056px) {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 43px;
+    span {
+      margin-left: 16px;
+    }
+  }
 `
 
 export const MenuItem = styled.div`
 width: 100%;
 display: flex;
 flex-direction: column;
+
+@media (max-width: 1056px) {
+    display: none;
+  }
 
 `
 export const MenuFooter = styled.div`
