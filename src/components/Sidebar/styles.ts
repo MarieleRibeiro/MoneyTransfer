@@ -1,9 +1,13 @@
 import styled from 'styled-components'
-export const Container = styled.div`
 
+export const Container = styled.div`
+  width: 100%;
+  max-width: 283px;
 `
 
 export const Perfil = styled.div`
+  width: 100%;
+  max-width: 283px;
 p {
   font-weight: normal;
   font-size: 16px;
@@ -19,7 +23,7 @@ a {
   color: ${(props) => props.theme.colors.black};
 }
 img {
-  margin-top: 30px; 
+ 
   width: 60px;
   height: 60px;
 }
@@ -33,6 +37,7 @@ h3 {
 `
 
 export const MenuItem = styled.div`
+width: 100%;
 display: flex;
 flex-direction: column;
 

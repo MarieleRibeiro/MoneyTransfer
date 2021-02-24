@@ -2,9 +2,14 @@ import styled from 'styled-components'
 
 
 export const Container = styled.div`
-margin-top: 35px;
+  width: 100%;
 `
+
 export const Header = styled.header`
+ 
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 h3 {
   font-weight: 500;
   font-size: 30px;
@@ -21,9 +26,13 @@ small {
   color: ${(props) => props.theme.colors.gray300}
 }
 `
+export const Info = styled.div`
+  width: 100%;
+`
+
 export const MainContent = styled.div`
-display: flex;
-justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 form {
   display: flex;
   justify-content: space-between;

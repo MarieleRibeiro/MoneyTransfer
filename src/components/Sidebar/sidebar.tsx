@@ -25,11 +25,6 @@ export const Sidebar = () => {
           </MenuFooter>
         </MenuItem>
       </Perfil>
-
-
-
-
-
     </Container>
   )
 }
