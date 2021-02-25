@@ -13,6 +13,7 @@ export const GlobalStyle = createGlobalStyle`
   background-repeat: no-repeat; /* 1 */
   box-sizing: inherit; /* 2 */
   font-family: 'Inter', sans-serif;
+
 }
 
 /**

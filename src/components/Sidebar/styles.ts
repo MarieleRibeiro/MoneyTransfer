@@ -6,7 +6,7 @@ export const Container = styled.div`
 
 `
 
-export const Perfil = styled.div`
+export const Wrapper = styled.div`
   width: 100%;
   max-width: 283px;
 p {
@@ -22,6 +22,9 @@ a {
   font-weight: 500;
   font-size: 16px;
   color: ${(props) => props.theme.colors.black};
+  :hover {
+    color: ${(props) => props.theme.colors.pink200};
+  }
 }
 img {
  
@@ -45,6 +48,12 @@ h3 {
       margin-left: 16px;
     }
   }
+`
+export const Perfil = styled.div`
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+
 `
 
 export const MenuItem = styled.div`
