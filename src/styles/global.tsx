@@ -44,7 +44,7 @@ body {
 /**
  * All Headings look the same
  */
-
+/* 
 h1,
 h2,
 h3,
@@ -52,7 +52,7 @@ h4,
 h5 {
   font-size: 1em;
   font-weight: normal;
-}
+} */
 
 /**
  * 1. Reset link styles 
@@ -79,7 +79,7 @@ ul {
 /**
  * Remove all default styles and all elements look the same 
  */
-/*
+
 button,
 input,
 optgroup,

@@ -1,12 +1,12 @@
-import { Container, Header, Info, MainContent, From, Span, IconRefresh, Footer, ChooseDate } from '../main/styles'
+import { Container, Header, Info, MainContent, From, Span, IconRefresh, Footer, ChooseDate, LabelRadio } from '../main/styles'
 import { BiRefresh } from 'react-icons/bi'
 import { FiCalendar } from 'react-icons/fi'
 import { Select, Radio, RadioChangeEvent } from 'antd';
 import 'antd/dist/antd.css';
 import React from 'react';
 
-const { Option } = Select;
 
+const { Option } = Select;
 
 
 export const MainContainer = () => {
@@ -22,6 +22,8 @@ export const MainContainer = () => {
   };
 
   return (
+
+
     <Container>
 
 
@@ -90,31 +92,33 @@ export const MainContainer = () => {
           <h2>Choose a plan:</h2>
           <p>Choose the date:  <FiCalendar size={18} /> </p>
         </ChooseDate>
-        <section>
-          <Radio.Group onChange={onChange} value={value}>
-            <Radio value={1}><label >
+
+        <Radio.Group onChange={onChange} value={value}>
+          <LabelRadio >
+            <Radio value={1}>
               Get 27 July 2020 till 12pm
-              <p>Express</p>
-            </label>
-              <h3>$ 0.99</h3>
+              <small>Express</small>
             </Radio>
+            <h3>$ 0.99</h3>
+          </LabelRadio>
 
-            <Radio value={2}> <label>
-              Get 27 July 2020 till 6pm
-             <p>Standard</p>
-            </label>
-              <h3>$ 1.00</h3>
+          <LabelRadio >
+            <Radio value={2}>
+              Get 27 July 2020 till 12pm
+              <small>Express</small>
             </Radio>
+            <h3>$ 0.99</h3>
+          </LabelRadio>
 
+          <LabelRadio >
             <Radio value={3}>
-              <label>
-                Get today till 8pm
-             <p>Only on working days from 11am to 8pm</p>
-              </label>
-              <h3>$ 1.00</h3>
+              Get 27 July 2020 till 12pm
+              <small>Express</small>
             </Radio>
-          </Radio.Group>
-        </section>
+            <h3>$ 0.99</h3>
+          </LabelRadio>
+        </Radio.Group>
+
 
       </Footer>
     </Container>

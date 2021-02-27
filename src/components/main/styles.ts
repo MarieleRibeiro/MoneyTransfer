@@ -73,7 +73,7 @@ Select {
   color:  ${(props) => props.theme.colors.black};
   border: none;
 }
-  `
+`
 
 
 export const From = styled.div`
@@ -117,7 +117,8 @@ height: 50px;
 border-radius: 50%;
 background: ${(props) => props.theme.colors.white};
 color:${(props) => props.theme.colors.pink200};
- 
+margin: 0 20px 0 20px;
+
 @media (max-width: 414px) {
     margin-top: 25px;
   }
@@ -129,7 +130,35 @@ export const ChooseDate = styled.div`
   align-items: center;
   margin: 30px 0 27px 0;
 `
+export const LabelRadio = styled.div`
+  padding: 23px 33px 22px 22px; 
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: 2px solid ${props => props.theme.colors.ice};
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  color: ${(props) => props.theme.colors.gray100};
+
+ label {
+   display: flex;
+   align-items: center;
+ }
+
+ span {
+   flex-direction: column;
+   font-weight: 500;
+   font-size: 18px;
+ }
+ small {
+  align-self: baseline;
+ }
+ 
+`
 export const Footer = styled.footer`
+  width: 100%;
 span {
   display: flex;
   align-items: center;
@@ -139,28 +168,9 @@ span {
     align-items: flex-start;
   }
 }
-section.Radio.Group{ 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 10px 0 10px;
-  width: 630px;
-  height: 80px;
-  border: 2px solid ${props => props.theme.colors.ice};
-  box-sizing: border-box;
-  border-radius: 4px;
-  margin-bottom: 20px;
-
   @media (max-width: 414px) {
     width: 100%;
   } 
-}
-
-label {
-  font-weight: 500;
-  font-size: 18px;
-  color: ${(props) => props.theme.colors.gray100}
-}
 
 h2 {
   font-weight: 500;
@@ -180,6 +190,10 @@ p {
 h3 {
   font-weight: 600;
   font-size: 18px;
-  color: ${(props) => props.theme.colors.black}
+  color: ${(props) => props.theme.colors.black};
 }
-`
+.ant-radio-group.ant-radio-group-outline {
+    width: 100%;
+}
+
+ `

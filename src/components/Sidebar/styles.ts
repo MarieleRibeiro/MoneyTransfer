@@ -60,9 +60,18 @@ export const MenuItem = styled.div`
 width: 100%;
 display: flex;
 flex-direction: column;
+margin-left: 35px;
+
+svg {
+  margin-right: 16px;
+}
 
 @media (max-width: 1056px) {
     display: none;
+  }
+
+  :hover {
+    color: ${(props) => props.theme.colors.pink200}
   }
 
 `
