@@ -21,9 +21,12 @@ import {
   InputNumber,
 } from "antd";
 import "antd/dist/antd.css";
+// import create from 'zustand'
 import api from "../../services/api";
+import create from "zustand";
 
 const { Option } = Select;
+
 export interface SelectItem {
   flag: string;
   id: string;
@@ -31,13 +34,34 @@ export interface SelectItem {
   value: string;
 }
 
+export const useStore = create<{
+  count: number;
+  plan: string;
+  date: string;
+  inc: (number: number) => void;
+  changePlan: (plan: string) => void;
+  changeDate: (plan: string) => void;
+}>((set) => ({
+  count: 0,
+  plan: "Express",
+  date: "",
+  inc: (number: number) => set((state) => ({ count: state.count + number })),
+  changePlan: (plan: string) => set(() => ({ plan })),
+  changeDate: (date: string) => set(() => ({ date })),
+}));
+
 export const MainContainer = () => {
+  const count = useStore((state) => state.count);
+  const plan = useStore((state) => state.plan);
+  const changePlan = useStore((state) => state.changePlan);
+  const inc = useStore((state) => state.inc);
+  const changeDate = useStore((state) => state.changeDate);
+
   function onSearch() {}
 
-  const [value, setValue] = React.useState(1);
-
   const onChange = (e: RadioChangeEvent) => {
-    setValue(e.target.value);
+    console.log(e.target);
+    changePlan(e.target.value);
   };
 
   const [currencies, setCurrencies] = useState<Array<SelectItem>>([]);
@@ -48,7 +72,9 @@ export const MainContainer = () => {
     });
   }, []);
 
-  function onChangeCurrenciesInput(value: string | number | null | undefined) {}
+  function onChangeCurrenciesInput(value: string | number | null | undefined) {
+    inc(Number(value));
+  }
 
   return (
     <Container>
@@ -56,7 +82,7 @@ export const MainContainer = () => {
         <Info>
           <h3>Send Money</h3>
           <strong>
-            22,124 <small>available</small>
+            {count} <small>available</small>
           </strong>
         </Info>
       </Header>
@@ -142,13 +168,16 @@ export const MainContainer = () => {
         <ChooseDate>
           Cloose a plan:
           <Space direction="vertical" size={22}>
-            <DatePicker bordered={false} />
+            <DatePicker
+              onChange={(_e, dateString) => changeDate(dateString)}
+              bordered={false}
+            />
           </Space>
         </ChooseDate>
 
-        <Radio.Group onChange={onChange} value={value}>
+        <Radio.Group onChange={onChange} value={plan}>
           <LabelRadio>
-            <Radio value={1}>
+            <Radio value={"Express"}>
               Get 27 July 2020 till 12pm
               <small>Express</small>
             </Radio>
@@ -156,17 +185,17 @@ export const MainContainer = () => {
           </LabelRadio>
 
           <LabelRadio>
-            <Radio value={2}>
+            <Radio value={"Tomorrow"}>
               Get 27 July 2020 till 12pm
-              <small>Express</small>
+              <small>Tomorrow</small>
             </Radio>
             <h3>$ 0.99</h3>
           </LabelRadio>
 
           <LabelRadio>
-            <Radio value={3}>
+            <Radio value={"Next week"}>
               Get 27 July 2020 till 12pm
-              <small>Express</small>
+              <small>Next week</small>
             </Radio>
             <h3>$ 0.99</h3>
           </LabelRadio>

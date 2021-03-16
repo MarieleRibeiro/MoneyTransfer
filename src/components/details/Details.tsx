@@ -6,6 +6,7 @@ import {
   FiDollarSign,
   FiShuffle,
 } from "react-icons/fi";
+import { useStore } from "../main/MainContainer";
 
 import {
   Container,
@@ -22,6 +23,9 @@ import {
 } from "./styles";
 
 export const Details = () => {
+  const plan = useStore((state) => state.plan);
+  const date = useStore((state) => state.date);
+
   return (
     <Container>
       <Menu>
@@ -36,7 +40,7 @@ export const Details = () => {
 
       <Wrapper>
         <MenuPayment>
-          <h3>Payment Details</h3>
+          <h3>Payment Details {plan}</h3>
           <FromTo>
             <In>
               <h6>22,124</h6>
@@ -59,7 +63,8 @@ export const Details = () => {
               <FiCalendar />
               <p>Delivery</p>
             </span>
-            <h2>27 July till 12pm</h2>
+            <h2>{date}</h2>
+            {/* <h2>27 July till 12pm</h2> */}
           </Resume>
 
           <Resume>
