@@ -23,6 +23,8 @@ import {
 import "antd/dist/antd.css";
 import api from "../../services/api";
 import create from "zustand";
+import currency from "currency.js";
+import { convert } from "cashify";
 
 const { Option } = Select;
 
@@ -63,6 +65,7 @@ export const MainContainer = () => {
   const incPayment = useStore((state) => state.incPayment);
   const inc = useStore((state) => state.inc);
   const changeDate = useStore((state) => state.changeDate);
+  const payment = useStore((state) => state.payment);
 
   function onSearch() {}
 
@@ -82,6 +85,23 @@ export const MainContainer = () => {
     inc(Number(value));
     incPayment(Number(value));
   }
+  // console.log(currency(100, { fromCents: false, symbol: "$" }).format());
+
+  const rates = {
+    GBP: 0.92,
+    EUR: 1.0,
+    USD: 1.12,
+    BRL: 6.1219,
+  };
+
+  const result = convert(payment, {
+    from: "EUR",
+    to: "BRL",
+    base: "EUR",
+    rates,
+  });
+
+  console.log(result);
 
   return (
     <Container>
