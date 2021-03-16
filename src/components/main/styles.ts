@@ -62,12 +62,12 @@ export const MainContent = styled.div`
       margin: 0 5px 0 0;
     }
   }
-  Select {
+  /* Select {
     background: ${(props) => props.theme.colors.black};
     font-weight: 600;
     font-size: 16px;
     color: ${(props) => props.theme.colors.black};
-  }
+  } */
   .ant-select-selection-item {
     display: flex;
     img {
@@ -100,14 +100,14 @@ export const Span = styled.div`
     color: ${(props) => props.theme.colors.gray200};
   }
   .ant-input-number-input {
+    display: flex;
     padding: 0;
     font-weight: 600;
     font-size: 30px;
     color: ${(props) => props.theme.colors.black100};
   }
   small {
-    /* margin-left: 20px; */
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
     color: ${(props) => props.theme.colors.black100};
   }

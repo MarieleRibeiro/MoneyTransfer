@@ -25,6 +25,7 @@ import {
 export const Details = () => {
   const plan = useStore((state) => state.plan);
   const date = useStore((state) => state.date);
+  const payment = useStore((state) => state.payment);
 
   return (
     <Container>
@@ -43,7 +44,7 @@ export const Details = () => {
           <h3>Payment Details {plan}</h3>
           <FromTo>
             <In>
-              <h6>22,124</h6>
+              <h6>{payment}</h6>
               <small>BRL</small>
             </In>
             <button>
@@ -51,7 +52,7 @@ export const Details = () => {
               <FiArrowRight size={24} />
             </button>
             <For>
-              <h6>4,124</h6>
+              <h6>4.22</h6>
               <small>EUR</small>
             </For>
           </FromTo>

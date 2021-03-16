@@ -21,7 +21,6 @@ import {
   InputNumber,
 } from "antd";
 import "antd/dist/antd.css";
-// import create from 'zustand'
 import api from "../../services/api";
 import create from "zustand";
 
@@ -36,16 +35,23 @@ export interface SelectItem {
 
 export const useStore = create<{
   count: number;
+  payment: number;
   plan: string;
   date: string;
   inc: (number: number) => void;
+  incPayment: (number: number) => void;
   changePlan: (plan: string) => void;
-  changeDate: (plan: string) => void;
+  changeDate: (date: string) => void;
 }>((set) => ({
   count: 0,
+  payment: 0,
   plan: "Express",
   date: "",
-  inc: (number: number) => set((state) => ({ count: state.count + number })),
+  // inc: (number: number) => set((state) => ({ count: state.count + number })),
+  incPayment: (payment: number) => set(() => ({ payment })),
+
+  inc: (count: number) => set(() => ({ count })),
+
   changePlan: (plan: string) => set(() => ({ plan })),
   changeDate: (date: string) => set(() => ({ date })),
 }));
@@ -54,13 +60,13 @@ export const MainContainer = () => {
   const count = useStore((state) => state.count);
   const plan = useStore((state) => state.plan);
   const changePlan = useStore((state) => state.changePlan);
+  const incPayment = useStore((state) => state.incPayment);
   const inc = useStore((state) => state.inc);
   const changeDate = useStore((state) => state.changeDate);
 
   function onSearch() {}
 
   const onChange = (e: RadioChangeEvent) => {
-    console.log(e.target);
     changePlan(e.target.value);
   };
 
@@ -74,6 +80,7 @@ export const MainContainer = () => {
 
   function onChangeCurrenciesInput(value: string | number | null | undefined) {
     inc(Number(value));
+    incPayment(Number(value));
   }
 
   return (
@@ -150,12 +157,12 @@ export const MainContainer = () => {
           <Span>
             <p>Recipient gets</p>
             <InputNumber
-              style={{ width: 200 }}
+              style={{ width: 150 }}
               min={0}
               max={100000}
               defaultValue={0}
               bordered={false}
-              onChange={onChangeCurrenciesInput}
+              // onChange={onChangeCurrenciesInput}
               step="0.01"
               stringMode
             />
