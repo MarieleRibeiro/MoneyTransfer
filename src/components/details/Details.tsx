@@ -26,6 +26,9 @@ export const Details = () => {
   const plan = useStore((state) => state.plan);
   const date = useStore((state) => state.date);
   const payment = useStore((state) => state.payment);
+  const globalResult = useStore((state) => state.result);
+  const to = useStore((state) => state.to);
+  const from = useStore((state) => state.from);
 
   return (
     <Container>
@@ -45,15 +48,15 @@ export const Details = () => {
           <FromTo>
             <In>
               <h6>{payment}</h6>
-              <small>BRL</small>
+              <small>{from}</small>
             </In>
             <button>
               {" "}
               <FiArrowRight size={24} />
             </button>
             <For>
-              <h6>4.22</h6>
-              <small>EUR</small>
+              <h6>{globalResult.toFixed(2)}</h6>
+              <small>{to}</small>
             </For>
           </FromTo>
         </MenuPayment>
@@ -73,7 +76,7 @@ export const Details = () => {
               <FiDollarSign />
               <p>Conversion rate</p>
             </span>
-            <h2>22,124</h2>
+            <h2>{payment}</h2>
           </Resume>
 
           <Resume>
@@ -81,7 +84,7 @@ export const Details = () => {
               <FiShuffle />
               <p>Recipient gets</p>
             </span>
-            <h2>4,124</h2>
+            <h2>{globalResult.toFixed(2)}</h2>
           </Resume>
 
           <ButtonFooter>Confirm</ButtonFooter>

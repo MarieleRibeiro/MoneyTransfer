@@ -189,9 +189,6 @@ export const MainContainer = () => {
             <p>You send</p>
             <InputNumber
               style={{ width: 150 }}
-              min={0}
-              max={100000}
-              defaultValue={0}
               bordered={false}
               onChange={onChangeCurrenciesInput}
               step="0.01"
@@ -266,19 +263,19 @@ export const MainContainer = () => {
           </LabelRadio>
 
           <LabelRadio>
-            <Radio value={"Tomorrow"}>
-              Get 27 July 2020 till 12pm
-              <small>Tomorrow</small>
+            <Radio value={"Standard"}>
+              Get 27 July 2020 till 6pm
+              <small>Standard</small>
             </Radio>
-            <h3>$ 0.99</h3>
+            <h3>$ 1.00</h3>
           </LabelRadio>
 
           <LabelRadio>
             <Radio value={"Next week"}>
-              Get 27 July 2020 till 12pm
+              Get Today till 8pm
               <small>Next week</small>
             </Radio>
-            <h3>$ 0.99</h3>
+            <h3>$ 1.00</h3>
           </LabelRadio>
         </Radio.Group>
       </Footer>
