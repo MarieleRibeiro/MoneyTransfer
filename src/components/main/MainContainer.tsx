@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Container,
   Header,
@@ -23,7 +23,6 @@ import {
 import "antd/dist/antd.css";
 import api from "../../services/api";
 import create from "zustand";
-import currency from "currency.js";
 import { convert } from "cashify";
 
 const { Option } = Select;
@@ -40,32 +39,49 @@ export const useStore = create<{
   payment: number;
   plan: string;
   date: string;
+  from: string;
+  to: string;
+  result: number;
   inc: (number: number) => void;
   incPayment: (number: number) => void;
   changePlan: (plan: string) => void;
   changeDate: (date: string) => void;
+  changeTo: (to: string) => void;
+  changeFrom: (from: string) => void;
+  changeResult: (from: number) => void;
 }>((set) => ({
   count: 0,
   payment: 0,
   plan: "Express",
   date: "",
+  from: "BRL",
+  to: "EUR",
+  result: 0,
   // inc: (number: number) => set((state) => ({ count: state.count + number })),
-  incPayment: (payment: number) => set(() => ({ payment })),
-
   inc: (count: number) => set(() => ({ count })),
-
+  incPayment: (payment: number) => set(() => ({ payment })),
   changePlan: (plan: string) => set(() => ({ plan })),
   changeDate: (date: string) => set(() => ({ date })),
+  changeFrom: (from: string) => set(() => ({ from })),
+  changeTo: (to: string) => set(() => ({ to })),
+  changeResult: (result: number) => set(() => ({ result })),
 }));
 
 export const MainContainer = () => {
   const count = useStore((state) => state.count);
   const plan = useStore((state) => state.plan);
+  const payment = useStore((state) => state.payment);
+  const to = useStore((state) => state.to);
+  const from = useStore((state) => state.from);
+  const globalResult = useStore((state) => state.result);
+
   const changePlan = useStore((state) => state.changePlan);
   const incPayment = useStore((state) => state.incPayment);
   const inc = useStore((state) => state.inc);
   const changeDate = useStore((state) => state.changeDate);
-  const payment = useStore((state) => state.payment);
+  const changeTo = useStore((state) => state.changeTo);
+  const changeFrom = useStore((state) => state.changeFrom);
+  const changeResult = useStore((state) => state.changeResult);
 
   function onSearch() {}
 
@@ -85,23 +101,51 @@ export const MainContainer = () => {
     inc(Number(value));
     incPayment(Number(value));
   }
-  // console.log(currency(100, { fromCents: false, symbol: "$" }).format());
 
   const rates = {
-    GBP: 0.92,
-    EUR: 1.0,
-    USD: 1.12,
-    BRL: 6.1219,
+    CAD: 1.4824,
+    HKD: 9.2493,
+    ISK: 151.6,
+    PHP: 57.997,
+    DKK: 7.436,
+    HUF: 368.18,
+    CZK: 26.17,
+    AUD: 1.5347,
+    RON: 4.8858,
+    SEK: 10.157,
+    IDR: 17165.19,
+    INR: 86.6105,
+    BRL: 6.6225,
+    RUB: 88.1313,
+    HRK: 7.575,
+    JPY: 130.08,
+    THB: 36.772,
+    CHF: 1.1069,
+    SGD: 1.6013,
+    PLN: 4.6253,
+    BGN: 1.9558,
+    TRY: 8.7701,
+    CNY: 7.7507,
+    NOK: 10.1058,
+    NZD: 1.6567,
+    ZAR: 17.6202,
+    USD: 1.1912,
+    MXN: 24.5306,
+    ILS: 3.929,
+    GBP: 0.85575,
+    KRW: 1343.25,
+    MYR: 4.8976,
   };
 
   const result = convert(payment, {
-    from: "EUR",
-    to: "BRL",
+    from,
+    to,
     base: "EUR",
     rates,
   });
-
-  console.log(result);
+  useEffect(() => {
+    changeResult(result);
+  }, [result, changeResult]);
 
   return (
     <Container>
@@ -125,6 +169,12 @@ export const MainContainer = () => {
               placeholder="Select a country"
               onSearch={onSearch}
               bordered={false}
+              value={from}
+              onChange={(value, option) => {
+                if (typeof value === "string") {
+                  changeFrom(value);
+                }
+              }}
             >
               {currencies.map((currency) => (
                 <Option key={currency.id} value={currency.value}>
@@ -147,7 +197,7 @@ export const MainContainer = () => {
               step="0.01"
               stringMode
             />
-            <small>BRL</small>
+            <small>{from}</small>
           </Span>
         </From>
 
@@ -161,10 +211,16 @@ export const MainContainer = () => {
             <Select
               // showSearch
               style={{ width: 200 }}
+              value={to}
               placeholder="Select a country"
               // optionFilterProp="country"
               onSearch={onSearch}
               bordered={false}
+              onChange={(value) => {
+                if (typeof value === "string") {
+                  changeTo(value);
+                }
+              }}
             >
               {currencies.map((currency) => (
                 <Option key={currency.id} value={currency.value}>
@@ -178,15 +234,13 @@ export const MainContainer = () => {
             <p>Recipient gets</p>
             <InputNumber
               style={{ width: 150 }}
-              min={0}
-              max={100000}
-              defaultValue={0}
+              value={globalResult.toFixed(2)}
               bordered={false}
               // onChange={onChangeCurrenciesInput}
               step="0.01"
               stringMode
             />
-            <small>EUR</small>
+            <small>{to}</small>
           </Span>
         </From>
       </MainContent>
