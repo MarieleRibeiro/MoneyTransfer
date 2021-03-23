@@ -83,6 +83,8 @@ export const MainContainer = () => {
   const changeFrom = useStore((state) => state.changeFrom);
   const changeResult = useStore((state) => state.changeResult);
 
+  const dateFormat = " DD MMM [till] ha";
+
   function onSearch() {}
 
   const onChange = (e: RadioChangeEvent) => {
@@ -249,6 +251,8 @@ export const MainContainer = () => {
             <DatePicker
               onChange={(_e, dateString) => changeDate(dateString)}
               bordered={false}
+              // defaultValue={moment("", dateFormat)}
+              format={dateFormat}
             />
           </Space>
         </ChooseDate>
