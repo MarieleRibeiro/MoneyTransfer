@@ -83,8 +83,7 @@ export const MainContainer = () => {
   const changeFrom = useStore((state) => state.changeFrom);
   const changeResult = useStore((state) => state.changeResult);
 
-  const dateFormat = " DD MMM [till] ha";
-
+  const dateFormat = "D MMM hha";
   function onSearch() {}
 
   const onChange = (e: RadioChangeEvent) => {
@@ -194,6 +193,7 @@ export const MainContainer = () => {
               bordered={false}
               onChange={onChangeCurrenciesInput}
               step="0.01"
+              defaultValue={payment}
               stringMode
             />
             <small>{from}</small>
@@ -249,9 +249,11 @@ export const MainContainer = () => {
           Cloose a plan:
           <Space direction="vertical" size={22}>
             <DatePicker
-              onChange={(_e, dateString) => changeDate(dateString)}
+              onChange={(value) => {
+                const isoDate = value?.toISOString() || "";
+                changeDate(isoDate);
+              }}
               bordered={false}
-              // defaultValue={moment("", dateFormat)}
               format={dateFormat}
             />
           </Space>

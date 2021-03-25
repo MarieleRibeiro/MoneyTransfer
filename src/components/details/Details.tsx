@@ -21,6 +21,7 @@ import {
   Resume,
   ButtonFooter,
 } from "./styles";
+import dayjs from "dayjs";
 
 export const Details = () => {
   const plan = useStore((state) => state.plan);
@@ -67,7 +68,8 @@ export const Details = () => {
               <FiCalendar />
               <p>Delivery</p>
             </span>
-            <h2>{date}</h2>
+
+            <h2>{dayjs(date).format("DD MMM [till] h:mmA")}</h2>
             {/* <h2>27 July till 12pm</h2> */}
           </Resume>
 
@@ -87,7 +89,21 @@ export const Details = () => {
             <h2>{globalResult.toFixed(2)}</h2>
           </Resume>
 
-          <ButtonFooter>Confirm</ButtonFooter>
+          <ButtonFooter
+            onClick={() => {
+              const payload = {
+                sentAt: date,
+                plan: plan,
+                sent: payment,
+                received: globalResult,
+                from: from,
+                to: to,
+              };
+              window.alert(JSON.stringify(payload, null, 2));
+            }}
+          >
+            Confirm
+          </ButtonFooter>
         </Info>
       </Wrapper>
     </Container>

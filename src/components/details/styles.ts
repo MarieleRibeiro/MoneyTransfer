@@ -88,13 +88,13 @@ export const Info = styled.div`
   }
   h2 {
     font-weight: 600;
-    font-size: 18px;
+    font-size: 16px;
     color: ${(props) => props.theme.colors.black};
   }
 
   @media (max-width: 414px) {
     width: 100%;
-    padding: 0 16px;
+    padding: 16px 16px;
   }
 `;
 

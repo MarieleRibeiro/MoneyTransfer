@@ -129,6 +129,7 @@ export const IconRefresh = styled.button`
 `;
 
 export const ChooseDate = styled.div`
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -148,6 +149,11 @@ export const LabelRadio = styled.div`
   justify-content: space-between;
   width: 100%;
   color: ${(props) => props.theme.colors.gray100};
+
+  @media (max-width: 414px) {
+    padding: 0 10px;
+    width: 100%;
+  }
 
   label {
     display: flex;
