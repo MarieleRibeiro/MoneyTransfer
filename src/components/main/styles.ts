@@ -150,6 +150,10 @@ export const LabelRadio = styled.div`
   width: 100%;
   color: ${(props) => props.theme.colors.gray100};
 
+  h3 {
+    font-size: 16px;
+  }
+
   @media (max-width: 414px) {
     padding: 0 10px;
     width: 100%;
@@ -169,6 +173,9 @@ export const LabelRadio = styled.div`
   }
   small {
     align-self: baseline;
+    font-size: 13px;
+    font-weight: normal;
+    color: ${(props) => props.theme.colors.gray300};
   }
 `;
 export const Footer = styled.footer`
