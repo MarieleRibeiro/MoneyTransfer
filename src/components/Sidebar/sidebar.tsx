@@ -1,10 +1,10 @@
-import { Container, Wrapper, Perfil, MenuItem, MenuFooter, } from "./styles"
-import { IoGridOutline, IoRepeat, IoCardOutline } from 'react-icons/io5'
-import { IoMdShuffle } from 'react-icons/io'
-import { FiDatabase, FiSettings } from 'react-icons/fi'
-import { CgLogOut } from 'react-icons/cg'
+import { Container, Wrapper, Perfil, MenuItem, MenuFooter } from "./styles";
+import { IoGridOutline, IoRepeat, IoCardOutline } from "react-icons/io5";
+import { IoMdShuffle } from "react-icons/io";
+import { FiDatabase, FiSettings } from "react-icons/fi";
+import { CgLogOut } from "react-icons/cg";
 
-import Avatar from "../../Images/Avatar.png"
+import Avatar from "../../Images/Avatar.png";
 
 export const Sidebar = () => {
   return (
@@ -16,17 +16,38 @@ export const Sidebar = () => {
           <p>2312T45B</p>
         </Perfil>
         <MenuItem>
-          <a href="/" > <IoGridOutline /> Services</a>
-          <a href="/"> <IoRepeat /> Transitions</a>
-          <a href="/"> <IoMdShuffle /> Send Money</a>
-          <a href="/"> <IoCardOutline /> Card</a>
-          <a href="/"> <FiDatabase /> History</a>
+          <a href="/">
+            {" "}
+            <IoGridOutline /> Services
+          </a>
+          <a href="/">
+            {" "}
+            <IoRepeat /> Transitions
+          </a>
+          <a href="/" data-active={true}>
+            {" "}
+            <IoMdShuffle /> Send Money
+          </a>
+          <a href="/">
+            {" "}
+            <IoCardOutline /> Card
+          </a>
+          <a href="/">
+            {" "}
+            <FiDatabase /> History
+          </a>
           <MenuFooter>
-            <a href="/"> <FiSettings /> Setting</a>
-            <a href="/"> <CgLogOut /> Log Out</a>
+            <a href="/">
+              {" "}
+              <FiSettings /> Setting
+            </a>
+            <a href="/">
+              {" "}
+              <CgLogOut /> Log Out
+            </a>
           </MenuFooter>
         </MenuItem>
       </Wrapper>
     </Container>
-  )
-}
+  );
+};
