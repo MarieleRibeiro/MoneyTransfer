@@ -133,14 +133,20 @@ export const ChooseDate = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 2rem 0 1.75rem 0;
+  margin: 2rem 0 1.5rem 0;
   font-weight: 500;
   font-size: 1.25rem;
   color: ${(props) => props.theme.colors.black};
+
+  .ant-picker-input > input {
+    font-size: 14px;
+    font-weight: 600;
+    width: 5.5rem;
+  }
 `;
 export const LabelRadio = styled.div`
-  padding: 23px 33px 22px 22px;
-  margin-bottom: 20px;
+  padding: 1rem;
+  margin-bottom: 1.25rem;
   box-sizing: border-box;
   border-radius: 4px;
   border: 2px solid ${(props) => props.theme.colors.ice};
