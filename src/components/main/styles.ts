@@ -10,7 +10,7 @@ export const Header = styled.header`
   justify-content: space-between;
   h3 {
     font-weight: 500;
-    font-size: 30px;
+    font-size: 1.75rem;
     color: ${(props) => props.theme.colors.black};
   }
   strong {
@@ -20,7 +20,7 @@ export const Header = styled.header`
   }
   small {
     font-weight: 400;
-    font-size: 16px;
+    font-size: 1rem;
     color: ${(props) => props.theme.colors.gray300};
   }
 `;
@@ -34,9 +34,9 @@ export const MainContent = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  @media (max-width: 414px) {
+  @media (max-width: 960px) {
     flex-direction: column;
-    margin: 58px 0;
+    margin: 3.5rem 0;
   }
 
   form {
@@ -45,19 +45,19 @@ export const MainContent = styled.div`
     align-items: center;
     width: 100%;
     height: 100%;
-    margin-top: 24px;
+    margin-top: 1.5rem;
     background: ${(props) => props.theme.colors.white100};
     border-radius: 8px;
-    margin-bottom: 28px;
-    padding: 15px;
+    margin-bottom: 1.75rem;
+    padding: 1rem;
 
-    @media (max-width: 414px) {
+    @media (max-width: 960px) {
       width: 100%;
     }
 
     h5 {
       font-weight: 400;
-      font-size: 16px;
+      font-size: 1rem;
       color: ${(props) => props.theme.colors.gray200};
       margin: 0 5px 0 0;
     }
@@ -72,13 +72,13 @@ export const MainContent = styled.div`
     display: flex;
     img {
       border-radius: 50%;
-      margin: 0 15px;
+      margin: 0 1rem;
     }
   }
 `;
 
 export const From = styled.div`
-  @media (max-width: 414px) {
+  @media (max-width: 960px) {
     width: 100%;
   }
 `;
@@ -87,27 +87,27 @@ export const Span = styled.div`
   background: ${(props) => props.theme.colors.white100};
   width: 100%;
   height: 100%;
-  padding: 27px 40px 27px 27px;
+  padding: 1.75rem 2.5rem 1.75rem 1.75rem;
 
-  @media (max-width: 414px) {
+  @media (max-width: 960px) {
     max-width: 381px;
     width: 100%;
   }
 
   p {
     font-weight: normal;
-    font-size: 14px;
+    font-size: 0.875rem;
     color: ${(props) => props.theme.colors.gray200};
   }
   .ant-input-number-input {
     display: flex;
     padding: 0;
     font-weight: 600;
-    font-size: 30px;
+    font-size: 1.75rem;
     color: ${(props) => props.theme.colors.black100};
   }
   small {
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 600;
     color: ${(props) => props.theme.colors.black100};
   }
@@ -121,10 +121,10 @@ export const IconRefresh = styled.button`
   border-radius: 50%;
   background: ${(props) => props.theme.colors.white};
   color: ${(props) => props.theme.colors.pink200};
-  margin: 0 20px 0 20px;
+  margin: 0 1.25rem 0 1.25rem;
 
-  @media (max-width: 414px) {
-    margin-top: 25px;
+  @media (max-width: 960px) {
+    margin-top: 1.125rem;
   }
 `;
 
@@ -133,9 +133,9 @@ export const ChooseDate = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 30px 0 27px 0;
+  margin: 2rem 0 1.75rem 0;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 1.25rem;
   color: ${(props) => props.theme.colors.black};
 `;
 export const LabelRadio = styled.div`
@@ -150,8 +150,8 @@ export const LabelRadio = styled.div`
   width: 100%;
   color: ${(props) => props.theme.colors.gray100};
 
-  @media (max-width: 414px) {
-    padding: 0 10px;
+  @media (max-width: 960px) {
+    padding: 0 0.625rem;
     width: 100%;
   }
 
@@ -159,13 +159,13 @@ export const LabelRadio = styled.div`
     display: flex;
     align-items: center;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 1rem;
   }
 
   span {
     flex-direction: column;
     font-weight: 500;
-    font-size: 18px;
+    font-size: 1.125rem;
   }
   small {
     align-self: baseline;
@@ -177,32 +177,32 @@ export const Footer = styled.footer`
     display: flex;
     align-items: center;
 
-    @media (max-width: 414px) {
+    @media (max-width: 960px) {
       flex-direction: column;
       align-items: flex-start;
     }
   }
-  @media (max-width: 414px) {
+  @media (max-width: 960px) {
     width: 100%;
   }
 
   h2 {
     font-weight: 500;
-    font-size: 24px;
+    font-size: 1.5rem;
     color: ${(props) => props.theme.colors.black};
 
-    @media (max-width: 414px) {
-      margin-bottom: 15px;
+    @media (max-width: 960px) {
+      margin-bottom: 1rem;
     }
   }
   p {
     font-weight: normal;
-    font-size: 14px;
+    font-size: 0.875rem;
     color: ${(props) => props.theme.colors.gray300};
   }
   h3 {
     font-weight: 600;
-    font-size: 18px;
+    font-size: 1.125rem;
     color: ${(props) => props.theme.colors.black};
   }
   .ant-radio-group.ant-radio-group-outline {

@@ -1,25 +1,20 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-  width: 100%;
-  max-width: 283px;
-`;
 
 export const Wrapper = styled.div`
   width: 100%;
   max-width: 283px;
+ 
   p {
     font-weight: normal;
-    font-size: 16px;
     color: ${(props) => props.theme.colors.gray300};
   }
   a {
     display: flex;
     align-items: center;
-    margin-top: 30px;
+    margin-top: 1.75rem;
     font-style: normal;
     font-weight: 500;
-    font-size: 16px;
     color: ${(props) => props.theme.colors.black};
     :hover {
       color: ${(props) => props.theme.colors.pink200};
@@ -31,19 +26,19 @@ export const Wrapper = styled.div`
   }
 
   h3 {
-    padding-top: 19px;
+    padding-top: 1.125rem;
     font-weight: 600;
     font-size: 24px;
     color: ${(props) => props.theme.colors.black};
   }
 
-  @media (max-width: 1056px) {
+  @media (max-width: 960px) {
     display: flex;
     align-items: center;
     width: 100%;
-    margin-bottom: 43px;
+    margin-bottom: 2.75rem;
     span {
-      margin-left: 16px;
+      margin-left: 1rem;
     }
   }
 `;
@@ -57,13 +52,13 @@ export const MenuItem = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-left: 35px;
+  margin-left: 3.5rem;
 
   svg {
-    margin-right: 16px;
+    margin-right: 1rem;
   }
 
-  @media (max-width: 1056px) {
+  @media (max-width: 960px) {
     display: none;
   }
 
@@ -75,5 +70,5 @@ export const MenuItem = styled.div`
 export const MenuFooter = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 100px;
+  margin-top: 6.25rem;
 `;

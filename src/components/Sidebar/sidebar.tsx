@@ -1,4 +1,4 @@
-import { Container, Wrapper, Perfil, MenuItem, MenuFooter } from "./styles";
+import { Wrapper, Perfil, MenuItem, MenuFooter } from "./styles";
 import { IoGridOutline, IoRepeat, IoCardOutline } from "react-icons/io5";
 import { IoMdShuffle } from "react-icons/io";
 import { FiDatabase, FiSettings } from "react-icons/fi";
@@ -8,7 +8,7 @@ import Avatar from "../../Images/Avatar.png";
 
 export const Sidebar = () => {
   return (
-    <Container>
+    <>
       <Wrapper>
         <Perfil>
           <img src={Avatar} alt="Perfil" />
@@ -48,6 +48,6 @@ export const Sidebar = () => {
           </MenuFooter>
         </MenuItem>
       </Wrapper>
-    </Container>
+    </>
   );
 };

@@ -84,7 +84,7 @@ export const MainContainer = () => {
   const changeResult = useStore((state) => state.changeResult);
 
   const dateFormat = "D MMM hha";
-  function onSearch() {}
+  function onSearch() { }
 
   const onChange = (e: RadioChangeEvent) => {
     changePlan(e.target.value);

@@ -65,7 +65,7 @@ export const Details = () => {
         <Info>
           <Resume>
             <span>
-              <FiCalendar />
+              <FiCalendar size={18} />
               <p>Delivery</p>
             </span>
 
@@ -75,7 +75,7 @@ export const Details = () => {
 
           <Resume>
             <span>
-              <FiDollarSign />
+              <FiDollarSign size={18} />
               <p>Conversion rate</p>
             </span>
             <h2>{payment}</h2>
@@ -83,7 +83,7 @@ export const Details = () => {
 
           <Resume>
             <span>
-              <FiShuffle />
+              <FiShuffle size={18} />
               <p>Recipient gets</p>
             </span>
             <h2>{globalResult.toFixed(2)}</h2>

@@ -11,16 +11,19 @@ export const GlobalStyle = createGlobalStyle`
   padding: 0; /* 1 */
   border: 0; /* 1 */
   background-repeat: no-repeat; /* 1 */
-  box-sizing: inherit; /* 2 */
+  box-sizing: border-box; /* 2 */
   font-family: 'Inter', sans-serif;
 
+  html {
+  @media (max-width: 1080px){
+    font-size: 93.75%;
+  }
+  @media (max-width: 720px) {
+    font-size: 87.5%;
+  }
 }
 
-/**
- * 1. Prevent certain mobile browsers from automatically zooming fonts.
- * 2. Border box sizing 
- * 3. Default scroll behavior (not smooth)
- */
+}
 
 html {
   -ms-text-size-adjust: 100%; /* 1 */
@@ -36,49 +39,22 @@ html {
  */
 
 body {
- /* font-size: 16px; /* 1 */
+  font-size: 16px; 
   -moz-osx-font-smoothing: grayscale; /* 2 */
   -webkit-font-smoothing: antialiased; /* 2 */
 }
 
-/**
- * All Headings look the same
- */
-/* 
-h1,
-h2,
-h3,
-h4,
-h5 {
-  font-size: 1em;
-  font-weight: normal;
-} */
-
-/**
- * 1. Reset link styles 
- * 2. Sized links
- * 3. Remove the gray background on active links in IE 10.
- */
-
 a {
   text-decoration: none; /* 1 */
   color: inherit; /* 1 */
-  display: inline-block; /* 2 */
   background-color: transparent; /* 3 */
 }
-
-/**
- * No bullets anymore
- */
 
 ol,
 ul {
   list-style: none;
 }
 
-/**
- * Remove all default styles and all elements look the same 
- */
 
 button,
 input,
@@ -99,58 +75,29 @@ textarea {
   vertical-align: top;
 }
 
-/**
- * Avoid no background on Edge and IE 
- */
-
 option {
   background-color: inherit;
 }
-
-/**
- * Set a color on active state 
- */
 
 a:active,
 button:active {
   color: inherit;
 }
 
-/**
- * Prevent chrome autofill style  
- */
-
-/**
- * You should define size for textarea
- */
-
 textarea {
   resize: none;
 }
-
-/**
- * Pointer cursor for buttons
- */
 
 input[type="button"],
 button {
   cursor: pointer;
 }
 
-/**
- * Pointer default for disabled buttons
- */
-
 button[disabled],
 html input[disabled] {
   cursor: default;
 }
 
-/**
- * 1. Remove space after each image
- * 2. Ensure responsive images
- * 3. Remove the border on images inside links in IE 10.
- */
 
 img {
   display: block; /* 1 */
@@ -159,9 +106,6 @@ img {
   border-style: none; /* 3 */
 }
 
-/**
- * Collapse border spacing
- */
 
 table {
   border-collapse: collapse;
