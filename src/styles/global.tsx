@@ -39,6 +39,7 @@ html {
  */
 
 body {
+  background: #FBFEFF;
   font-size: 16px; 
   -moz-osx-font-smoothing: grayscale; /* 2 */
   -webkit-font-smoothing: antialiased; /* 2 */
@@ -100,7 +101,7 @@ html input[disabled] {
 
 
 img {
-  display: block; /* 1 */
+  /* display: block; 1 */
   max-width: 100%; /* 2 */
   height: auto; /* 2 */
   border-style: none; /* 3 */

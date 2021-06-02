@@ -13,4 +13,9 @@ padding: 3rem;
     padding: 3rem 1rem;
   }
 
+  @media (min-width: 1440px) {
+   
+    margin: 50% auto;
+  }
+
 `

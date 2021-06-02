@@ -159,6 +159,7 @@ export const LabelRadio = styled.div`
   @media (max-width: 960px) {
     padding: 0 0.625rem;
     width: 100%;
+
   }
 
   label {
@@ -172,6 +173,10 @@ export const LabelRadio = styled.div`
     flex-direction: column;
     font-weight: 500;
     font-size: 1.125rem;
+
+    @media (max-width: 960px) {
+    font-size: 0.875rem;
+  }
   }
   small {
     align-self: baseline;
@@ -210,6 +215,10 @@ export const Footer = styled.footer`
     font-weight: 600;
     font-size: 1.125rem;
     color: ${(props) => props.theme.colors.black};
+
+    @media (max-width: 960px) {
+    font-size: 0.75rem;
+  }
   }
   .ant-radio-group.ant-radio-group-outline {
     width: 100%;
