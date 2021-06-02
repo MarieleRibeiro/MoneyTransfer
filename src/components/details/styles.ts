@@ -127,7 +127,7 @@ export const Resume = styled.div`
   justify-content: space-between;
 
   h2 {
-    font-size: 14px;
+    font-size: 0.75rem;
   }
 
   svg {

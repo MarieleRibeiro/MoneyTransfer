@@ -139,9 +139,9 @@ export const ChooseDate = styled.div`
   color: ${(props) => props.theme.colors.black};
 
   .ant-picker-input > input {
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 600;
-    width: 5.5rem;
+    width: 5.6rem;
   }
 `;
 export const LabelRadio = styled.div`
