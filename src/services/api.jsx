@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: 'https://my-json-server.typicode.com/juliomerisio/currency-json-server/'  
+  baseURL: 'https://my-json-server.typicode.com/marieleribeiro/currency-json-server/'  
 });
 
 
