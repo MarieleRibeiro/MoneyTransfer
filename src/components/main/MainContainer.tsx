@@ -68,7 +68,7 @@ export const useStore = create<{
 }));
 
 export const MainContainer = () => {
-  const count = useStore((state) => state.count);
+  // const count = useStore((state) => state.count);
   const plan = useStore((state) => state.plan);
   const payment = useStore((state) => state.payment);
   const to = useStore((state) => state.to);
