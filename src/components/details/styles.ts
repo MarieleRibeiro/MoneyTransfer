@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  max-width: 381px;
   width: 100%;
   margin-left: 3rem;
+  height: auto;
   @media (max-width: 960px) {
     width: 100%;
     margin: 0;
@@ -15,7 +15,7 @@ export const Wrapper = styled.div`
   box-sizing: border-box;
   border-radius: 4px;
 
-  margin-top: 5.5rem;
+  margin-top: 2rem;
 `;
 export const Menu = styled.div`
   /* width: 100%; */
@@ -48,7 +48,7 @@ export const Button = styled.button`
 export const MenuPayment = styled.div`
   /* width: 100%; */
   padding: 2rem;
- 
+
   h3 {
     font-weight: 600;
     font-size: 24px;
@@ -115,7 +115,6 @@ export const Info = styled.div`
     padding: 1rem;
   }
 `;
-
 
 export const In = styled.div``;
 export const For = styled.div``;

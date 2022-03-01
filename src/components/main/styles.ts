@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
+  height: auto;
 `;
 
 export const Header = styled.header`
@@ -26,6 +27,9 @@ export const Header = styled.header`
 `;
 export const Info = styled.div`
   width: 100%;
+  @media (max-width: 960px) {
+    text-align: center;
+  }
 `;
 
 export const MainContent = styled.div`
@@ -36,7 +40,6 @@ export const MainContent = styled.div`
 
   @media (max-width: 960px) {
     flex-direction: column;
-    margin: 3.5rem 0;
   }
 
   form {
@@ -71,8 +74,7 @@ export const MainContent = styled.div`
   .ant-select-selection-item {
     display: flex;
     img {
-      border-radius: 50%;
-      margin: 0 1rem;
+      margin: 0 1rem 0 0;
     }
   }
 `;
@@ -80,6 +82,9 @@ export const MainContent = styled.div`
 export const From = styled.div`
   @media (max-width: 960px) {
     width: 100%;
+  }
+  img {
+    object-fit: contain;
   }
 `;
 export const Span = styled.div`
@@ -90,7 +95,6 @@ export const Span = styled.div`
   padding: 1.75rem 2.5rem 1.75rem 1.75rem;
 
   @media (max-width: 960px) {
-    max-width: 381px;
     width: 100%;
   }
 
@@ -159,7 +163,6 @@ export const LabelRadio = styled.div`
   @media (max-width: 960px) {
     padding: 0 0.625rem;
     width: 100%;
-
   }
 
   label {
@@ -175,8 +178,8 @@ export const LabelRadio = styled.div`
     font-size: 1.125rem;
 
     @media (max-width: 960px) {
-    font-size: 0.875rem;
-  }
+      font-size: 0.875rem;
+    }
   }
   small {
     align-self: baseline;
@@ -217,8 +220,8 @@ export const Footer = styled.footer`
     color: ${(props) => props.theme.colors.black};
 
     @media (max-width: 960px) {
-    font-size: 0.75rem;
-  }
+      font-size: 0.75rem;
+    }
   }
   .ant-radio-group.ant-radio-group-outline {
     width: 100%;

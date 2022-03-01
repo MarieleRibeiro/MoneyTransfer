@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
-
 export const Wrapper = styled.div`
   width: 100%;
-  max-width: 283px;
- 
+  /* max-width: 283px; */
+  padding: "1rem";
+  height: auto;
+
   p {
     font-weight: normal;
     color: ${(props) => props.theme.colors.gray300};
@@ -36,7 +37,7 @@ export const Wrapper = styled.div`
     display: flex;
     align-items: center;
     width: 100%;
-    margin-bottom: 2.75rem;
+    justify-content: center;
     span {
       margin-left: 1rem;
     }

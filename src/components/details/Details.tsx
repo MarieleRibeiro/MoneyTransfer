@@ -48,7 +48,7 @@ export const Details = () => {
           <h3>Payment Details {plan}</h3>
           <FromTo>
             <In>
-              <h6>{payment}</h6>
+              <h6>{payment.toFixed(2)}</h6>
               <small>{from}</small>
             </In>
             <button>
@@ -94,8 +94,8 @@ export const Details = () => {
               const payload = {
                 sentAt: date,
                 plan: plan,
-                sent: payment,
-                received: globalResult,
+                sent: payment.toFixed(2),
+                received: globalResult.toFixed(2),
                 from: from,
                 to: to,
               };

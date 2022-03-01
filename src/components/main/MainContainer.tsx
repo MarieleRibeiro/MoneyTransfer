@@ -84,7 +84,7 @@ export const MainContainer = () => {
   const changeResult = useStore((state) => state.changeResult);
 
   const dateFormat = "D MMM hha";
-  function onSearch() { }
+  function onSearch() {}
 
   const onChange = (e: RadioChangeEvent) => {
     changePlan(e.target.value);
@@ -153,9 +153,6 @@ export const MainContainer = () => {
       <Header>
         <Info>
           <h3>Send Money</h3>
-          <strong>
-            {count} <small>available</small>
-          </strong>
         </Info>
       </Header>
 
@@ -165,22 +162,28 @@ export const MainContainer = () => {
             <label>From:</label>
 
             <Select
-              showSearch
               style={{ width: 200 }}
               placeholder="Select a country"
+              defaultValue="Select a country"
               onSearch={onSearch}
               bordered={false}
               value={from}
-              onChange={(value, option) => {
+              onChange={(value) => {
                 if (typeof value === "string") {
                   changeFrom(value);
                 }
               }}
             >
               {currencies.map((currency) => (
-                <Option key={currency.id} value={currency.value}>
-                  <img src={currency.flag} alt="flag" width={20} height={20} />
-                  {currency.label}
+                <Option key={currency?.id} value={currency?.value}>
+                  <img
+                    src={currency?.flag}
+                    alt="flag"
+                    width={20}
+                    height={20}
+                    style={{ margin: "0 10px 0 0" }}
+                  />
+                  {currency?.label}
                 </Option>
               ))}
             </Select>
@@ -189,11 +192,11 @@ export const MainContainer = () => {
           <Span>
             <p>You send</p>
             <InputNumber
-              style={{ width: 150 }}
+              style={{ width: "100%" }}
               bordered={false}
               onChange={onChangeCurrenciesInput}
               step="0.01"
-              defaultValue={payment}
+              value={payment.toFixed(2)}
               stringMode
             />
             <small>{from}</small>
@@ -208,10 +211,9 @@ export const MainContainer = () => {
           <form>
             <label> To:</label>
             <Select
-              // showSearch
+              defaultValue="Select a country"
               style={{ width: 200 }}
               value={to}
-              placeholder="Select a country"
               // optionFilterProp="country"
               onSearch={onSearch}
               bordered={false}
@@ -222,9 +224,15 @@ export const MainContainer = () => {
               }}
             >
               {currencies.map((currency) => (
-                <Option key={currency.id} value={currency.value}>
-                  <img src={currency.flag} alt="flag" width={20} height={20} />
-                  {currency.label}
+                <Option key={currency?.id} value={currency?.value}>
+                  <img
+                    src={currency?.flag}
+                    alt="flag"
+                    width={20}
+                    height={20}
+                    style={{ margin: "0 10px 0 0" }}
+                  />
+                  {currency?.label}
                 </Option>
               ))}
             </Select>
@@ -232,7 +240,7 @@ export const MainContainer = () => {
           <Span>
             <p>Recipient gets</p>
             <InputNumber
-              style={{ width: 150 }}
+              style={{ width: "100%" }}
               value={globalResult.toFixed(2)}
               bordered={false}
               // onChange={onChangeCurrenciesInput}
