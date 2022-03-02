@@ -55,7 +55,7 @@ export const useStore = create<{
   plan: "Express",
   date: "",
   from: "BRL",
-  to: "EUR",
+  to: "USD",
   result: 0,
   // inc: (number: number) => set((state) => ({ count: state.count + number })),
   inc: (count: number) => set(() => ({ count })),
@@ -68,7 +68,7 @@ export const useStore = create<{
 }));
 
 export const MainContainer = () => {
-  const count = useStore((state) => state.count);
+  // const count = useStore((state) => state.count);
   const plan = useStore((state) => state.plan);
   const payment = useStore((state) => state.payment);
   const to = useStore((state) => state.to);
@@ -141,7 +141,7 @@ export const MainContainer = () => {
   const result = convert(payment, {
     from,
     to,
-    base: "EUR",
+    base: "USD",
     rates,
   });
   useEffect(() => {
@@ -243,7 +243,7 @@ export const MainContainer = () => {
               style={{ width: "100%" }}
               value={globalResult.toFixed(2)}
               bordered={false}
-              // onChange={onChangeCurrenciesInput}
+              onChange={onChangeCurrenciesInput}
               step="0.01"
               stringMode
             />

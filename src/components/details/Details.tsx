@@ -69,7 +69,11 @@ export const Details = () => {
               <p>Delivery</p>
             </span>
 
-            <h2>{dayjs(date).format("DD MMM [till] h:mmA")}</h2>
+            <h2>
+              {dayjs(date).format("DD MMM [till] h:mmA") === "Invalid Date"
+                ? new Date().toString()
+                : dayjs(date).format("DD MMM [till] h:mmA")}
+            </h2>
             {/* <h2>27 July till 12pm</h2> */}
           </Resume>
 
