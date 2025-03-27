@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
   /* max-width: 283px; */
   padding: "1rem";
   height: auto;
+  
 
   p {
     font-weight: normal;

@@ -31,6 +31,9 @@ export const Details = () => {
   const to = useStore((state) => state.to);
   const from = useStore((state) => state.from);
 
+  const dateDetails = new Date();
+const formattedDate = dayjs(dateDetails).format("ddd MMM DD YYYY HH:mm:ss") + " (Brasilia Standard Time)";
+
   return (
     <Container>
       <Menu>
@@ -70,9 +73,9 @@ export const Details = () => {
             </span>
 
             <h2>
-              {dayjs(date).format("DD MMM [till] h:mmA") === "Invalid Date"
-                ? new Date().toString()
-                : dayjs(date).format("DD MMM [till] h:mmA")}
+              {dayjs(date).isValid()
+                ? dayjs(date).format("DD MMM - hh:mm A")
+                : formattedDate}
             </h2>
             {/* <h2>27 July till 12pm</h2> */}
           </Resume>

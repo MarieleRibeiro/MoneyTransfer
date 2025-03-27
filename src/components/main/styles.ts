@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import 'antd/dist/reset.css';
+
 
 export const Container = styled.div`
   width: 100%;

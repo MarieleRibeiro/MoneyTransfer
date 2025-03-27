@@ -124,9 +124,12 @@ export const Resume = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
 
   h2 {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
+    margin-left: auto;
+    text-align: right;
   }
 
   svg {

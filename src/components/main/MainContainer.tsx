@@ -20,10 +20,12 @@ import {
   Space,
   InputNumber,
 } from "antd";
-import "antd/dist/antd.css";
+import 'antd/dist/reset.css';
+
 import api from "../../services/api";
 import create from "zustand";
-import { convert } from "cashify";
+
+import { key } from "../key";
 
 const { Option } = Select;
 
@@ -75,6 +77,7 @@ export const MainContainer = () => {
   const from = useStore((state) => state.from);
   const globalResult = useStore((state) => state.result);
 
+
   const changePlan = useStore((state) => state.changePlan);
   const incPayment = useStore((state) => state.incPayment);
   const inc = useStore((state) => state.inc);
@@ -83,8 +86,9 @@ export const MainContainer = () => {
   const changeFrom = useStore((state) => state.changeFrom);
   const changeResult = useStore((state) => state.changeResult);
 
-  const dateFormat = "D MMM hha";
-  function onSearch() {}
+  const dateFormat = "DD MMM YYYY";
+
+  function onSearch() { }
 
   const onChange = (e: RadioChangeEvent) => {
     changePlan(e.target.value);
@@ -98,55 +102,40 @@ export const MainContainer = () => {
     });
   }, []);
 
+  useEffect(() => {
+    const calcular = async () => {
+      try {
+        const response = await fetch(`https://v6.exchangerate-api.com/v6/${key}/latest/${from}`)
+        const dados = await response.json()
+        const taxa = dados.conversion_rates[to];
+        var setResultado = payment * taxa;
+        changeResult(setResultado);
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    if (payment > 0) {
+      calcular();
+    }
+
+  }, [from, to, payment, changeResult]);
+
   function onChangeCurrenciesInput(value: string | number | null | undefined) {
     inc(Number(value));
     incPayment(Number(value));
   }
 
-  const rates = {
-    CAD: 1.4824,
-    HKD: 9.2493,
-    ISK: 151.6,
-    PHP: 57.997,
-    DKK: 7.436,
-    HUF: 368.18,
-    CZK: 26.17,
-    AUD: 1.5347,
-    RON: 4.8858,
-    SEK: 10.157,
-    IDR: 17165.19,
-    INR: 86.6105,
-    BRL: 6.6225,
-    RUB: 88.1313,
-    HRK: 7.575,
-    JPY: 130.08,
-    THB: 36.772,
-    CHF: 1.1069,
-    SGD: 1.6013,
-    PLN: 4.6253,
-    BGN: 1.9558,
-    TRY: 8.7701,
-    CNY: 7.7507,
-    NOK: 10.1058,
-    NZD: 1.6567,
-    ZAR: 17.6202,
-    USD: 1.1912,
-    MXN: 24.5306,
-    ILS: 3.929,
-    GBP: 0.85575,
-    KRW: 1343.25,
-    MYR: 4.8976,
+  const swapCurrencies = () => {
+    const currentFrom = from;
+    const currentTo = to;
+    
+    changeFrom(currentTo);
+    changeTo(currentFrom);
   };
 
-  const result = convert(payment, {
-    from,
-    to,
-    base: "USD",
-    rates,
-  });
-  useEffect(() => {
-    changeResult(result);
-  }, [result, changeResult]);
+
+ 
+
 
   return (
     <Container>
@@ -203,7 +192,7 @@ export const MainContainer = () => {
           </Span>
         </From>
 
-        <IconRefresh>
+        <IconRefresh onClick={swapCurrencies}>
           <BiRefresh size={24} />
         </IconRefresh>
 
