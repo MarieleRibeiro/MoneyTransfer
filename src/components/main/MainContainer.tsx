@@ -117,7 +117,6 @@ export const MainContainer = () => {
 
   const changePlan = useStore((state) => state.changePlan);
   const incPayment = useStore((state) => state.incPayment);
-  const inc = useStore((state) => state.inc);
   const changeDate = useStore((state) => state.changeDate);
   const changeTo = useStore((state) => state.changeTo);
   const changeFrom = useStore((state) => state.changeFrom);
@@ -174,7 +173,7 @@ export const MainContainer = () => {
       }
     };
     calcular();
-  }, [from, to, payment, changeResult]);
+  }, [from, to, payment, changeResult, changeRate]);
 
   function onChangeCurrenciesInput(value: string | number | null | undefined) {
     if (value === null || value === undefined) {
