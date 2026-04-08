@@ -32,7 +32,7 @@ export const Wrapper = styled.div`
     min-height: auto;
     flex-direction: row;
     align-items: center;
-    padding: 1rem 1.5rem;
+    padding: 1.25rem 1.5rem;
     border-radius: 16px;
   }
 `;

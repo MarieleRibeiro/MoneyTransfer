@@ -44,6 +44,7 @@ export const Container = styled.div`
   @media (max-width: 960px) {
     grid-template-columns: 1fr;
     padding: 1rem;
+    padding-top: calc(1.5rem + env(safe-area-inset-top));
     gap: 1rem;
   }
 `;
