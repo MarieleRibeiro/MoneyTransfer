@@ -24,8 +24,10 @@ export const Sidebar = () => {
           <img src={Avatar} alt="Perfil" />
           <span className="status-badge" />
         </div>
-        <h3>Mariele Ribeiro</h3>
-        <p>2312T45B</p>
+        <div className="profile-text">
+          <h3>Mariele Ribeiro</h3>
+          <p>2312T45B</p>
+        </div>
       </Perfil>
 
       <MenuSectionTitle>Main Menu</MenuSectionTitle>

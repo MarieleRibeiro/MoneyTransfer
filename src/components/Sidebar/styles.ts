@@ -127,16 +127,43 @@ export const Perfil = styled.div`
   }
 
   @media (max-width: 960px) {
-    flex-direction: row;
+    flex-direction: column;
     padding: 0;
     border-bottom: none;
     margin-bottom: 0;
-    gap: 0.75rem;
+    gap: 0.5rem;
 
-    .avatar-wrapper img {
-      width: 48px;
-      height: 48px;
+    .avatar-wrapper {
+      flex-shrink: 0;
+      margin-bottom: 0;
+      img {
+        width: 48px;
+        height: 48px;
+        object-fit: cover;
+      }
     }
+
+    .profile-text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      text-align: center;
+    }
+  }
+`;
+
+
+export const MenuSectionTitle = styled.h4`
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #484F58;
+  letter-spacing: 0.1em;
+  margin: 1.5rem 0 0.75rem 1rem;
+
+  @media (max-width: 960px) {
+    display: none;
   }
 `;
 
@@ -194,15 +221,6 @@ export const MenuItem = styled.div`
   }
 `;
 
-export const MenuSectionTitle = styled.p`
-  font-size: 0.7rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #484F58;
-  padding: 0 1rem;
-  margin: 1.25rem 0 0.5rem;
-`;
 
 export const MenuFooter = styled.div`
   display: flex;
