@@ -2,19 +2,48 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
-  height: 100vh;
-  background: ${(props) => props.theme.colors.white300};
-  display: flex;
-  padding: 3rem;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0D1117 0%, #0A0F1A 50%, #0D1117 100%);
+  display: grid;
+  grid-template-columns: 260px 1fr 340px;
+  gap: 1.5rem;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
 
-  @media (max-width: 960px) {
-    width: 100%;
-    flex-direction: column;
-    padding: 3rem 1rem;
+  /* Ambient glow effects */
+  &::before {
+    content: '';
+    position: fixed;
+    top: -20%;
+    left: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(0, 212, 170, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
   }
 
-  /* @media (min-width: 1440px) {
-   
-    margin: 50% auto;
-  } */
+  &::after {
+    content: '';
+    position: fixed;
+    bottom: -20%;
+    right: -5%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(88, 166, 255, 0.04) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @media (max-width: 1200px) {
+    grid-template-columns: 220px 1fr 300px;
+    padding: 1.5rem;
+  }
+
+  @media (max-width: 960px) {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+    gap: 1rem;
+  }
 `;

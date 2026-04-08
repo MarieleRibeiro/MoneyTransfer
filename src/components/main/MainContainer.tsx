@@ -5,11 +5,15 @@ import {
   Info,
   MainContent,
   From,
-  Span,
-  IconRefresh,
+  CurrencyCard,
+  AmountBox,
+  AmountLabel,
+  SwapButton,
+  ExchangeRate,
   Footer,
   ChooseDate,
   LabelRadio,
+  SectionTitle,
 } from "../main/styles";
 import { BiRefresh } from "react-icons/bi";
 import {
@@ -21,11 +25,10 @@ import {
   InputNumber,
 } from "antd";
 import 'antd/dist/reset.css';
+import dayjs from "dayjs";
 
 import api from "../../services/api";
 import create from "zustand";
-
-import { key } from "../key";
 
 const { Option } = Select;
 
@@ -44,6 +47,7 @@ export const useStore = create<{
   from: string;
   to: string;
   result: number;
+  rate: number | null;
   inc: (number: number) => void;
   incPayment: (number: number) => void;
   changePlan: (plan: string) => void;
@@ -51,6 +55,7 @@ export const useStore = create<{
   changeTo: (to: string) => void;
   changeFrom: (from: string) => void;
   changeResult: (from: number) => void;
+  changeRate: (rate: number | null) => void;
 }>((set) => ({
   count: 0,
   payment: 0,
@@ -59,7 +64,7 @@ export const useStore = create<{
   from: "BRL",
   to: "USD",
   result: 0,
-  // inc: (number: number) => set((state) => ({ count: state.count + number })),
+  rate: null,
   inc: (count: number) => set(() => ({ count })),
   incPayment: (payment: number) => set(() => ({ payment })),
   changePlan: (plan: string) => set(() => ({ plan })),
@@ -67,16 +72,48 @@ export const useStore = create<{
   changeFrom: (from: string) => set(() => ({ from })),
   changeTo: (to: string) => set(() => ({ to })),
   changeResult: (result: number) => set(() => ({ result })),
+  changeRate: (rate: number | null) => set(() => ({ rate })),
 }));
 
+const planOptions = [
+  {
+    value: "Express",
+    name: "Express",
+    description: "Arrives within 2 hours",
+    price: "$ 0.99",
+    dateLabel: () => {
+      const d = dayjs().add(2, "hour");
+      return `Today, ${d.format("HH:mm")}`;
+    },
+  },
+  {
+    value: "Standard",
+    name: "Standard",
+    description: "Arrives by end of day",
+    price: "$ 0.49",
+    dateLabel: () => {
+      const d = dayjs().endOf("day");
+      return `Today, ${d.format("HH:mm")}`;
+    },
+  },
+  {
+    value: "Next Day",
+    name: "Next Day",
+    description: "Arrives tomorrow",
+    price: "Free",
+    dateLabel: () => {
+      const d = dayjs().add(1, "day");
+      return `${d.format("ddd, DD MMM")}`;
+    },
+  },
+];
+
 export const MainContainer = () => {
-  // const count = useStore((state) => state.count);
   const plan = useStore((state) => state.plan);
   const payment = useStore((state) => state.payment);
   const to = useStore((state) => state.to);
   const from = useStore((state) => state.from);
   const globalResult = useStore((state) => state.result);
-
 
   const changePlan = useStore((state) => state.changePlan);
   const incPayment = useStore((state) => state.incPayment);
@@ -85,16 +122,17 @@ export const MainContainer = () => {
   const changeTo = useStore((state) => state.changeTo);
   const changeFrom = useStore((state) => state.changeFrom);
   const changeResult = useStore((state) => state.changeResult);
+  const changeRate = useStore((state) => state.changeRate);
 
   const dateFormat = "DD MMM YYYY";
+  const [currencies, setCurrencies] = useState<Array<SelectItem>>([]);
+  const [liveRate, setLiveRate] = useState<number | null>(null);
 
-  function onSearch() { }
+  function onSearch() {}
 
   const onChange = (e: RadioChangeEvent) => {
     changePlan(e.target.value);
   };
-
-  const [currencies, setCurrencies] = useState<Array<SelectItem>>([]);
 
   useEffect(() => {
     api.get("currencies").then((response) => {
@@ -105,181 +143,203 @@ export const MainContainer = () => {
   useEffect(() => {
     const calcular = async () => {
       try {
-        const response = await fetch(`https://v6.exchangerate-api.com/v6/${key}/latest/${from}`)
-        const dados = await response.json()
-        const taxa = dados.conversion_rates[to];
-        var setResultado = payment * taxa;
-        changeResult(setResultado);
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    if (payment > 0) {
-      calcular();
-    }
+        if (from === to) {
+          setLiveRate(1);
+          changeRate(1);
+          changeResult(payment);
+          return;
+        }
 
+        const response = await fetch(
+          `https://api.frankfurter.dev/v1/latest?from=${from}&to=${to}`
+        );
+
+        if (!response.ok) {
+          // Fallback if currency is not supported (e.g. RUB, HRK)
+          setLiveRate(null);
+          changeRate(null);
+          return;
+        }
+
+        const dados = await response.json();
+        const taxa = dados.rates[to];
+        setLiveRate(taxa);
+        changeRate(taxa);
+        const resultado = payment * taxa;
+        changeResult(resultado);
+      } catch (error) {
+        console.log("Error fetching rates:", error);
+        setLiveRate(null);
+        changeRate(null);
+      }
+    };
+    calcular();
   }, [from, to, payment, changeResult]);
 
   function onChangeCurrenciesInput(value: string | number | null | undefined) {
-    inc(Number(value));
-    incPayment(Number(value));
+    if (value === null || value === undefined) {
+      incPayment(0);
+      return;
+    }
+    const val = typeof value === "string" ? parseFloat(value) : value;
+    if (!isNaN(val)) {
+      incPayment(val);
+    }
   }
 
   const swapCurrencies = () => {
     const currentFrom = from;
     const currentTo = to;
-    
     changeFrom(currentTo);
     changeTo(currentFrom);
   };
-
-
- 
-
 
   return (
     <Container>
       <Header>
         <Info>
           <h3>Send Money</h3>
+          <p className="subtitle">Fast, secure international transfers</p>
+          {liveRate && (
+            <ExchangeRate>
+              <span className="rate-dot" />
+              <span className="rate-label">Live rate:</span>
+              <span className="rate-value">
+                1 {from} = {liveRate.toFixed(4)} {to}
+              </span>
+            </ExchangeRate>
+          )}
         </Info>
       </Header>
 
       <MainContent>
         <From>
-          <form>
-            <label>From:</label>
-
-            <Select
-              style={{ width: 200 }}
-              placeholder="Select a country"
-              defaultValue="Select a country"
-              onSearch={onSearch}
-              bordered={false}
-              value={from}
-              onChange={(value) => {
-                if (typeof value === "string") {
-                  changeFrom(value);
-                }
-              }}
-            >
-              {currencies.map((currency) => (
-                <Option key={currency?.id} value={currency?.value}>
-                  <img
-                    src={currency?.flag}
-                    alt="flag"
-                    width={20}
-                    height={20}
-                    style={{ margin: "0 10px 0 0" }}
-                  />
-                  {currency?.label}
-                </Option>
-              ))}
-            </Select>
-          </form>
-
-          <Span>
-            <p>You send</p>
-            <InputNumber
-              style={{ width: "100%" }}
-              bordered={false}
-              onChange={onChangeCurrenciesInput}
-              step="0.01"
-              value={payment.toFixed(2)}
-              stringMode
-            />
-            <small>{from}</small>
-          </Span>
+          <span className="field-label">You send</span>
+          <CurrencyCard>
+            <form>
+              <label style={{ display: "none" }}>From</label>
+              <Select
+                style={{ width: "100%" }}
+                placeholder="Select currency"
+                onSearch={onSearch}
+                variant="borderless"
+                value={from}
+                onChange={(value) => {
+                  if (typeof value === "string") changeFrom(value);
+                }}
+              >
+                {currencies.map((currency) => (
+                  <Option key={currency?.id} value={currency?.value}>
+                    <img
+                      src={currency?.flag}
+                      alt="flag"
+                      width={20}
+                      height={14}
+                      style={{ borderRadius: 3 }}
+                    />
+                    {currency?.label}
+                  </Option>
+                ))}
+              </Select>
+            </form>
+            <AmountLabel>Amount</AmountLabel>
+            <AmountBox>
+              <InputNumber
+                style={{ width: "100%" }}
+                variant="borderless"
+                onChange={onChangeCurrenciesInput}
+                step="0.01"
+                value={payment}
+                placeholder="0.00"
+              />
+              <span className="currency-code">{from}</span>
+            </AmountBox>
+          </CurrencyCard>
         </From>
 
-        <IconRefresh onClick={swapCurrencies}>
-          <BiRefresh size={24} />
-        </IconRefresh>
+        <SwapButton onClick={swapCurrencies} title="Swap currencies">
+          <BiRefresh size={22} />
+        </SwapButton>
 
         <From>
-          <form>
-            <label> To:</label>
-            <Select
-              defaultValue="Select a country"
-              style={{ width: 200 }}
-              value={to}
-              // optionFilterProp="country"
-              onSearch={onSearch}
-              bordered={false}
-              onChange={(value) => {
-                if (typeof value === "string") {
-                  changeTo(value);
-                }
-              }}
-            >
-              {currencies.map((currency) => (
-                <Option key={currency?.id} value={currency?.value}>
-                  <img
-                    src={currency?.flag}
-                    alt="flag"
-                    width={20}
-                    height={20}
-                    style={{ margin: "0 10px 0 0" }}
-                  />
-                  {currency?.label}
-                </Option>
-              ))}
-            </Select>
-          </form>
-          <Span>
-            <p>Recipient gets</p>
-            <InputNumber
-              style={{ width: "100%" }}
-              value={globalResult.toFixed(2)}
-              bordered={false}
-              onChange={onChangeCurrenciesInput}
-              step="0.01"
-              stringMode
-            />
-            <small>{to}</small>
-          </Span>
+          <span className="field-label">Recipient gets</span>
+          <CurrencyCard>
+            <form>
+              <label style={{ display: "none" }}>To</label>
+              <Select
+                style={{ width: "100%" }}
+                value={to}
+                onSearch={onSearch}
+                variant="borderless"
+                onChange={(value) => {
+                  if (typeof value === "string") changeTo(value);
+                }}
+              >
+                {currencies.map((currency) => (
+                  <Option key={currency?.id} value={currency?.value}>
+                    <img
+                      src={currency?.flag}
+                      alt="flag"
+                      width={20}
+                      height={14}
+                      style={{ borderRadius: 3 }}
+                    />
+                    {currency?.label}
+                  </Option>
+                ))}
+              </Select>
+            </form>
+            <AmountLabel>Amount</AmountLabel>
+            <AmountBox>
+              <InputNumber
+                style={{ width: "100%" }}
+                value={globalResult.toFixed(2)}
+                variant="borderless"
+                readOnly
+                step="0.01"
+                stringMode
+              />
+              <span className="currency-code">{to}</span>
+            </AmountBox>
+          </CurrencyCard>
         </From>
       </MainContent>
 
       <Footer>
         <ChooseDate>
-          Cloose a plan:
-          <Space direction="vertical" size={22}>
+          <span className="date-label">Delivery date</span>
+          <Space direction="vertical" size={12}>
             <DatePicker
               onChange={(value) => {
                 const isoDate = value?.toISOString() || "";
                 changeDate(isoDate);
               }}
-              bordered={false}
+              variant="borderless"
               format={dateFormat}
+              placeholder="Select date"
             />
           </Space>
         </ChooseDate>
 
-        <Radio.Group onChange={onChange} value={plan}>
-          <LabelRadio>
-            <Radio value={"Express"}>
-              Get 27 July 2020 till 12pm
-              <small>Express</small>
-            </Radio>
-            <h3>$ 0.99</h3>
-          </LabelRadio>
+        <SectionTitle>Choose a plan</SectionTitle>
 
-          <LabelRadio>
-            <Radio value={"Standard"}>
-              Get 27 July 2020 till 6pm
-              <small>Standard</small>
-            </Radio>
-            <h3>$ 1.00</h3>
-          </LabelRadio>
-
-          <LabelRadio>
-            <Radio value={"Next week"}>
-              Get Today till 8pm
-              <small>Next week</small>
-            </Radio>
-            <h3>$ 1.00</h3>
-          </LabelRadio>
+        <Radio.Group onChange={onChange} value={plan} style={{ width: "100%" }}>
+          {planOptions.map((opt) => (
+            <LabelRadio
+              key={opt.value}
+              $active={plan === opt.value}
+              onClick={() => changePlan(opt.value)}
+            >
+              <label onClick={(e) => e.preventDefault()}>
+                <Radio value={opt.value} />
+                <div className="plan-info">
+                  <span className="plan-name">{opt.name}</span>
+                  <span className="plan-date">{opt.dateLabel()}</span>
+                </div>
+              </label>
+              <span className="plan-price">{opt.price}</span>
+            </LabelRadio>
+          ))}
         </Radio.Group>
       </Footer>
     </Container>

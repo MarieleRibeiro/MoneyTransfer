@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   FiArrowRight,
   FiFileText,
@@ -5,13 +6,14 @@ import {
   FiCalendar,
   FiDollarSign,
   FiShuffle,
+  FiCheckCircle,
 } from "react-icons/fi";
 import { useStore } from "../main/MainContainer";
 
 import {
   Container,
   Menu,
-  Button,
+  IconButton,
   Wrapper,
   MenuPayment,
   FromTo,
@@ -19,7 +21,8 @@ import {
   For,
   Info,
   Resume,
-  ButtonFooter,
+  ConfirmButton,
+  SuccessToast,
 } from "./styles";
 import dayjs from "dayjs";
 
@@ -30,36 +33,56 @@ export const Details = () => {
   const globalResult = useStore((state) => state.result);
   const to = useStore((state) => state.to);
   const from = useStore((state) => state.from);
+  const rate = useStore((state) => state.rate);
 
-  const dateDetails = new Date();
-const formattedDate = dayjs(dateDetails).format("ddd MMM DD YYYY HH:mm:ss") + " (Brasilia Standard Time)";
+  const [loading, setLoading] = useState(false);
+  const [confirmed, setConfirmed] = useState(false);
+
+  const conversionRate = rate ? rate.toFixed(4) : "—";
+
+  const deliveryDate = dayjs(date).isValid()
+    ? dayjs(date).format("DD MMM YYYY, HH:mm")
+    : dayjs().add(2, "hour").format("DD MMM YYYY, HH:mm");
+
+  const handleConfirm = () => {
+    if (payment <= 0) return;
+    setLoading(true);
+
+    setTimeout(() => {
+      setLoading(false);
+      setConfirmed(true);
+      setTimeout(() => setConfirmed(false), 4000);
+    }, 1500);
+  };
 
   return (
     <Container>
       <Menu>
-        <Button>
-          {" "}
-          <FiFileText size={24} />{" "}
-        </Button>
-        <Button>
-          <FiHelpCircle size={24} />
-        </Button>
+        <IconButton title="Download receipt">
+          <FiFileText size={18} />
+        </IconButton>
+        <IconButton title="Help">
+          <FiHelpCircle size={18} />
+        </IconButton>
       </Menu>
 
       <Wrapper>
         <MenuPayment>
-          <h3>Payment Details {plan}</h3>
+          <h3>Payment Details</h3>
+          <span className="plan-badge">⚡ {plan}</span>
+
           <FromTo>
             <In>
-              <h6>{payment.toFixed(2)}</h6>
+              <h6>{payment > 0 ? payment.toFixed(2) : "0.00"}</h6>
               <small>{from}</small>
             </In>
-            <button>
-              {" "}
-              <FiArrowRight size={24} />
+
+            <button title="Direction">
+              <FiArrowRight size={18} />
             </button>
+
             <For>
-              <h6>{globalResult.toFixed(2)}</h6>
+              <h6>{globalResult > 0 ? globalResult.toFixed(2) : "0.00"}</h6>
               <small>{to}</small>
             </For>
           </FromTo>
@@ -67,52 +90,78 @@ const formattedDate = dayjs(dateDetails).format("ddd MMM DD YYYY HH:mm:ss") + " 
 
         <Info>
           <Resume>
-            <span>
-              <FiCalendar size={18} />
+            <div className="resume-left">
+              <FiCalendar size={16} />
               <p>Delivery</p>
-            </span>
+            </div>
+            <h2>{deliveryDate}</h2>
+          </Resume>
 
+          <Resume>
+            <div className="resume-left">
+              <FiDollarSign size={16} />
+              <p>Exchange rate</p>
+            </div>
             <h2>
-              {dayjs(date).isValid()
-                ? dayjs(date).format("DD MMM - hh:mm A")
-                : formattedDate}
+              1 {from} = {conversionRate} {to}
             </h2>
-            {/* <h2>27 July till 12pm</h2> */}
           </Resume>
 
           <Resume>
-            <span>
-              <FiDollarSign size={18} />
-              <p>Conversion rate</p>
-            </span>
-            <h2>{payment}</h2>
-          </Resume>
-
-          <Resume>
-            <span>
-              <FiShuffle size={18} />
+            <div className="resume-left">
+              <FiShuffle size={16} />
               <p>Recipient gets</p>
-            </span>
-            <h2>{globalResult.toFixed(2)}</h2>
+            </div>
+            <h2>
+              {globalResult > 0 ? globalResult.toFixed(2) : "0.00"} {to}
+            </h2>
           </Resume>
 
-          <ButtonFooter
-            onClick={() => {
-              const payload = {
-                sentAt: date,
-                plan: plan,
-                sent: payment.toFixed(2),
-                received: globalResult.toFixed(2),
-                from: from,
-                to: to,
-              };
-              window.alert(JSON.stringify(payload, null, 2));
-            }}
+          <Resume>
+            <div className="resume-left">
+              <FiDollarSign size={16} />
+              <p>Transfer fee</p>
+            </div>
+            <h2>
+              {plan === "Express"
+                ? "$ 0.99"
+                : plan === "Standard"
+                ? "$ 0.49"
+                : "Free"}
+            </h2>
+          </Resume>
+
+          <ConfirmButton
+            $loading={loading}
+            onClick={handleConfirm}
+            disabled={payment <= 0}
           >
-            Confirm
-          </ButtonFooter>
+            {loading ? (
+              <>Processing…</>
+            ) : (
+              <>
+                <FiCheckCircle size={18} />
+                Confirm Transfer
+              </>
+            )}
+          </ConfirmButton>
         </Info>
       </Wrapper>
+
+      {confirmed && (
+        <SuccessToast>
+          <div className="toast-icon">
+            <FiCheckCircle />
+          </div>
+          <div className="toast-content">
+            <h4>Transfer confirmed! 🎉</h4>
+            <p>
+              {payment.toFixed(2)} {from} → {globalResult.toFixed(2)} {to} via{" "}
+              {plan}
+            </p>
+          </div>
+        </SuccessToast>
+      )}
     </Container>
   );
 };
